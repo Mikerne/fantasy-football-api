@@ -28,6 +28,10 @@ public class User implements Serializable, ISecurityUser {
     @Column(name = "password")
     private String password;
 
+    @Basic(optional = false)
+    @Column(name = "username", unique = true, nullable = false)
+    private String username;
+
     @JoinTable(name = "user_roles", joinColumns = {@JoinColumn(name = "user_name", referencedColumnName = "username")}, inverseJoinColumns = {@JoinColumn(name = "role_name", referencedColumnName = "name")})
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private Set<Role> roles = new HashSet<>();
@@ -47,13 +51,14 @@ public class User implements Serializable, ISecurityUser {
         return BCrypt.checkpw(pw, this.password);
     }
 
-    public User(Integer id, String userPass) {
-        this.id = id;
+    public User(String username, String userPass) {
+        this.username = username;
         this.password = BCrypt.hashpw(userPass, BCrypt.gensalt());
     }
 
-    public User(Integer id, Set<Role> roleEntityList) {
+    public User(Integer id, String username, Set<Role> roleEntityList) {
         this.id = id;
+        this.username = username;
         this.roles = roleEntityList;
     }
 
