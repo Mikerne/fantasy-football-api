@@ -2,7 +2,6 @@ package dat.controllers.impl;
 
 import dat.config.ApplicationConfig;
 import dat.config.HibernateConfig;
-import dat.dtos.HotelDTO;
 import dat.security.controllers.SecurityController;
 import dat.security.daos.SecurityDAO;
 import dat.security.exceptions.ValidationException;
