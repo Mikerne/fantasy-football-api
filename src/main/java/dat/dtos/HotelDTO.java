@@ -1,6 +1,5 @@
 package dat.dtos;
 
-import dat.entities.Hotel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

@@ -1,7 +1,5 @@
 package dat.controllers.impl;
 
-import dat.entities.Hotel;
-import dat.entities.Room;
 import dat.security.entities.User;
 import dat.security.entities.Role;
 import dk.bugelhartmann.UserDTO;

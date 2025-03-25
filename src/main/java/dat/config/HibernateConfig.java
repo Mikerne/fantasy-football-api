@@ -1,7 +1,5 @@
 package dat.config;
 
-import dat.entities.Hotel;
-import dat.entities.Room;
 import dat.security.entities.Role;
 import dat.security.entities.User;
 import dat.utils.Utils;

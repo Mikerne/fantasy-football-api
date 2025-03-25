@@ -1,7 +1,6 @@
 package dat.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import dat.entities.Room;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

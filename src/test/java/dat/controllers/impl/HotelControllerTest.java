@@ -2,12 +2,9 @@ package dat.controllers.impl;
 
 import dat.config.ApplicationConfig;
 import dat.config.HibernateConfig;
-import dat.daos.impl.HotelDAO;
 import dat.dtos.HotelDTO;
-import dat.entities.Hotel;
 import dat.security.controllers.SecurityController;
 import dat.security.daos.SecurityDAO;
-import dat.security.entities.User;
 import dat.security.exceptions.ValidationException;
 import dk.bugelhartmann.UserDTO;
 import io.javalin.Javalin;
@@ -15,8 +12,6 @@ import io.restassured.common.mapper.TypeRef;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 

@@ -4,8 +4,6 @@ package dat.daos.impl;
 import dat.daos.IDAO;
 import dat.dtos.HotelDTO;
 import dat.dtos.RoomDTO;
-import dat.entities.Hotel;
-import dat.entities.Room;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.TypedQuery;

@@ -6,8 +6,6 @@ import dat.daos.impl.RoomDAO;
 import dat.dtos.HotelDTO;
 import dat.dtos.RoomDTO;
 import dat.exceptions.Message;
-import dat.entities.Hotel;
-import dat.entities.Room;
 import io.javalin.http.Context;
 import jakarta.persistence.EntityManagerFactory;
 
