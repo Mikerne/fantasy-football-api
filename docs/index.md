@@ -4,6 +4,7 @@ Velkommen til Fantasy Football API!
 
 ##  Indhold
 - [API Endpoints](./endpoints.md)
+- [Database Diagram](./database.md)
 
 ## Beskrivelse:
 Fantasy Football API er en platform, der giver brugere mulighed for at oprette deres eget fantasy-hold, konkurrere mod andre spillere og følge med i realtids-statistikker for spillere og kampe. Brugere kan vælge spillere til deres hold, ændre formationer og få point baseret på spillernes præstationer i virkelige fodboldkampe.
