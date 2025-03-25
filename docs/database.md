@@ -1,0 +1,56 @@
+# Database Diagram
+```mermaid
+erDiagram
+USERS ||--o{ TEAMS : "can create"
+USERS ||--o{ POINTS : "earns"
+USERS {
+int id PK
+string username
+string email
+string password
+string role
+timestamp created_at
+}
+
+    PLAYERS ||--o{ TEAMS : "can be part of"
+    PLAYERS {
+        int id PK
+        string name
+        string position
+        string team
+        int performance_rating
+    }
+
+    TEAMS ||--o{ MATCHES : "participates in"
+    TEAMS {
+        int id PK
+        string name
+        int user_id FK
+        timestamp created_at
+    }
+
+    MATCHES ||--o{ POINTS : "generates"
+    MATCHES {
+        int id PK
+        date match_date
+        string home_team
+        string away_team
+        string result
+        timestamp created_at
+    }
+
+    LEAGUES ||--o{ TEAMS : "contains"
+    LEAGUES {
+        int id PK
+        string name
+        int owner_id FK
+        timestamp created_at
+    }
+
+    POINTS {
+        int id PK
+        int user_id FK
+        int match_id FK
+        int points_earned
+        timestamp earned_at
+    }
