@@ -4,13 +4,16 @@ package dat.entities;
 import dat.security.entities.User;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.security.Timestamp;
 import java.util.List;
 
 @Entity
 @Table(name = "TEAMS")
-@Data
+@Getter
+@Setter
 public class Team {
 
     @Id

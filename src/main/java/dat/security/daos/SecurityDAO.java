@@ -14,11 +14,6 @@ import jakarta.persistence.EntityNotFoundException;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-
-/**
- * Purpose: To handle security in the API
- * Author: Thomas Hartmann
- */
 public class SecurityDAO implements ISecurityDAO {
 
     private static ISecurityDAO instance;
@@ -39,8 +34,7 @@ public class SecurityDAO implements ISecurityDAO {
             if (user == null)
                 throw new EntityNotFoundException("No user found with username: " + username); //RuntimeException
             user.getRoles().size(); // force roles to be fetched from db
-            if (!user.verifyPassword(password))
-                throw new ValidationException("Wrong password");
+            if (!user.verifyPassword(password)) throw new ValidationException("Wrong password");
             return new UserDTO(user.getUsername(), user.getRoles().stream().map(r -> r.getRoleName()).collect(Collectors.toSet()));
         }
     }
@@ -54,14 +48,13 @@ public class SecurityDAO implements ISecurityDAO {
             userEntity = new User(username, password);
             em.getTransaction().begin();
             Role userRole = em.find(Role.class, "user");
-            if (userRole == null)
-                userRole = new Role("user");
+            if (userRole == null) userRole = new Role("user");
             em.persist(userRole);
             userEntity.addRole(userRole);
             em.persist(userEntity);
             em.getTransaction().commit();
             return userEntity;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             throw new ApiException(400, e.getMessage());
         }
@@ -74,13 +67,13 @@ public class SecurityDAO implements ISecurityDAO {
             if (user == null)
                 throw new EntityNotFoundException("No user found with username: " + userDTO.getUsername());
             em.getTransaction().begin();
-                Role role = em.find(Role.class, newRole);
-                if (role == null) {
-                    role = new Role(newRole);
-                    em.persist(role);
-                }
-                user.addRole(role);
-                //em.merge(user);
+            Role role = em.find(Role.class, newRole);
+            if (role == null) {
+                role = new Role(newRole);
+                em.persist(role);
+            }
+            user.addRole(role);
+            //em.merge(user);
             em.getTransaction().commit();
             return user;
         }

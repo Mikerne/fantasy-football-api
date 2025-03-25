@@ -9,27 +9,21 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Purpose: To handle security in the API
- * Author: Thomas Hartmann
- */
 @Entity
 @Table(name = "users")
 @NamedQueries(@NamedQuery(name = "User.deleteAllRows", query = "DELETE from User"))
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Getter
+@Setter
 public class User implements Serializable, ISecurityUser {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Basic(optional = false)
-    @Column(name = "username", length = 25)
-    private String username;
+    private Integer id;
     @Basic(optional = false)
     @Column(name = "password")
     private String password;
@@ -53,13 +47,13 @@ public class User implements Serializable, ISecurityUser {
         return BCrypt.checkpw(pw, this.password);
     }
 
-    public User(String userName, String userPass) {
-        this.username = userName;
+    public User(Integer id, String userPass) {
+        this.id = id;
         this.password = BCrypt.hashpw(userPass, BCrypt.gensalt());
     }
 
-    public User(String userName, Set<Role> roleEntityList) {
-        this.username = userName;
+    public User(Integer id, Set<Role> roleEntityList) {
+        this.id = id;
         this.roles = roleEntityList;
     }
 

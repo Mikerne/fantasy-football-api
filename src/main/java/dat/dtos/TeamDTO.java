@@ -1,18 +1,29 @@
 package dat.dtos;
 
+import dat.entities.Team;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.security.Timestamp;
 import java.time.LocalDate;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class TeamDTO {
     private int id;
     private String name;
-    private LocalDate createdAt;
+    private Timestamp createdAt;
     private int creatorId;
     private Integer leagueId;
+
+    public TeamDTO(Team team) {
+        this.id = team.getId();
+        this.name = team.getName();
+        this.createdAt = team.getCreatedAt();
+        this.creatorId = team.getCreator().getId();
+        this.leagueId = team.getLeague() != null ? team.getLeague().getId() : null;
+
+}
 }
