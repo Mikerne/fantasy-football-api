@@ -101,21 +101,48 @@ public class HibernateConfig {
 
     private static Properties setDevProperties(Properties props) {
         String DBName = Utils.getPropertyValue("DB_NAME", "config.properties");
-        props.put("hibernate.connection.url", "jdbc:postgresql://localhost:5432/" + DBName);
-        props.put("hibernate.connection.username", "admin");
-        props.put("hibernate.connection.password", "sth23qsj");
+        String DBUser = Utils.getPropertyValue("DB_USERNAME", "config.properties");
+        String DBPassword = Utils.getPropertyValue("DB_PASSWORD", "config.properties");
+        String DBHost = Utils.getPropertyValue("DB_HOST", "config.properties");
+        String SSLMode = Utils.getPropertyValue("DB_SSL", "config.properties").equals("true") ? "?sslmode=require" : "";
+
+        String connectionString = "jdbc:postgresql://" + DBHost + "/" + DBName + SSLMode;
+
+        props.put("hibernate.connection.url", connectionString);
+        props.put("hibernate.connection.username", DBUser);
+        props.put("hibernate.connection.password", DBPassword);
+        props.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+        props.put("hibernate.connection.driver_class", "org.postgresql.Driver");
+        props.put("hibernate.hbm2ddl.auto", "update");
+        props.put("hibernate.current_session_context_class", "thread");
+        props.put("hibernate.show_sql", "true");
+        props.put("hibernate.format_sql", "true");
+        props.put("hibernate.use_sql_comments", "true");
+
         return props;
     }
 
+
     private static Properties setTestProperties(Properties props) {
-        //props.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-        props.put("hibernate.connection.driver_class", "org.testcontainers.jdbc.ContainerDatabaseDriver");
-        props.put("hibernate.connection.url", "jdbc:tc:postgresql:15.3-alpine3.18:///test_db");
-        props.put("hibernate.connection.username", "admin");
-        props.put("hibernate.connection.password", "sth23qsj");
-        props.put("hibernate.archive.autodetection", "class");
+        String DBName = "fantasyFootball_test";
+        String DBUser = "fantasyFootball_owner";
+        String DBPassword = "npg_hRzA7xTrX5Fq";
+        String DBHost = "ep-blue-bar-a2d4kdwp-pooler.eu-central-1.aws.neon.tech";
+        String SSLMode = "?sslmode=require";
+
+        String connectionString = "jdbc:postgresql://" + DBHost + "/" + DBName + SSLMode;
+
+        props.put("hibernate.connection.url", connectionString);
+        props.put("hibernate.connection.username", DBUser);
+        props.put("hibernate.connection.password", DBPassword);
+        props.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+        props.put("hibernate.connection.driver_class", "org.postgresql.Driver");
+        props.put("hibernate.hbm2ddl.auto", "create-drop"); // Sletter og opretter tabeller for hver testkørsel
         props.put("hibernate.show_sql", "true");
-        props.put("hibernate.hbm2ddl.auto", "create-drop"); // update for production
+        props.put("hibernate.format_sql", "true");
+        props.put("hibernate.use_sql_comments", "true");
+
         return props;
     }
+
 }
