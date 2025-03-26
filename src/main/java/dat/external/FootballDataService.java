@@ -29,7 +29,7 @@ public class FootballDataService {
             Scanner scanner = new Scanner(stream).useDelimiter("\\A");
             String response = scanner.hasNext() ? scanner.next() : "";
 
-            System.out.println("⚠️ FEJL-RESPONS:");
+            System.out.println("⚠️ FEJL-RESPONS s:");
             System.out.println(response); // <-- Se hvad RapidAPI svarer
 
 
