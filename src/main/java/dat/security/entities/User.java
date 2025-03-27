@@ -9,32 +9,35 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Purpose: To handle security in the API
- * Author: Thomas Hartmann
- */
 @Entity
 @Table(name = "users")
 @NamedQueries(@NamedQuery(name = "User.deleteAllRows", query = "DELETE from User"))
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Getter
+@Setter
 public class User implements Serializable, ISecurityUser {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Basic(optional = false)
-    @Column(name = "username", length = 25)
-    private String username;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     @Basic(optional = false)
     @Column(name = "password")
     private String password;
 
-    @JoinTable(name = "user_roles", joinColumns = {@JoinColumn(name = "user_name", referencedColumnName = "username")}, inverseJoinColumns = {@JoinColumn(name = "role_name", referencedColumnName = "name")})
+    @Basic(optional = false)
+    @Column(name = "username", unique = true, nullable = false)
+    private String username;
+
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_name", referencedColumnName = "name")
+    )
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private Set<Role> roles = new HashSet<>();
 
@@ -53,13 +56,14 @@ public class User implements Serializable, ISecurityUser {
         return BCrypt.checkpw(pw, this.password);
     }
 
-    public User(String userName, String userPass) {
-        this.username = userName;
+    public User(String username, String userPass) {
+        this.username = username;
         this.password = BCrypt.hashpw(userPass, BCrypt.gensalt());
     }
 
-    public User(String userName, Set<Role> roleEntityList) {
-        this.username = userName;
+    public User(Integer id, String username, Set<Role> roleEntityList) {
+        this.id = id;
+        this.username = username;
         this.roles = roleEntityList;
     }
 
