@@ -1,5 +1,6 @@
 package dat.dtos;
 
+import dat.entities.Player;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,4 +14,9 @@ public class PlayerDTO {
     private String position;
     private int teamId;
     private int performanceRating;
+
+
+    public PlayerDTO(Player player) {
+        this.id = player.getId();
+    }
 }

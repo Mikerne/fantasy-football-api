@@ -2,6 +2,7 @@ package dat.config;
 
 import dat.entities.*;
 //import dat.security.entities.Role;
+import dat.security.entities.Role;
 import dat.security.entities.User;
 import dat.utils.Utils;
 import jakarta.persistence.EntityManagerFactory;
@@ -48,7 +49,7 @@ public class HibernateConfig {
         configuration.addAnnotatedClass(League.class);
         configuration.addAnnotatedClass(Player.class);
         configuration.addAnnotatedClass(User.class);
-        //configuration.addAnnotatedClass(Role.class);
+        configuration.addAnnotatedClass(Role.class);
     }
 
     private static EntityManagerFactory createEMF(boolean forTest) {

@@ -26,5 +26,5 @@ public class Player {
     private Team team;
 
     @Column(name = "performance_rating", nullable = false)
-    private int performanceRating;
+    private Double performanceRating;
 }

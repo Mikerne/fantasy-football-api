@@ -5,7 +5,7 @@ import dat.security.entities.User;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -15,7 +15,7 @@ public class League {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     private String name;
 
