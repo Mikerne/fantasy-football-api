@@ -21,11 +21,11 @@ public class Match {
 
 
     @ManyToOne
-    @JoinColumn(name = "home_team_id")
+    @JoinColumn(name = "home_team", referencedColumnName = "id")
     private Team homeTeam;
 
     @ManyToOne
-    @JoinColumn(name = "away_team_id")
+    @JoinColumn(name = "away_team", referencedColumnName = "id")
     private Team awayTeam;
 
     private String result;
