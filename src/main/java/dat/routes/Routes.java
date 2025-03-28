@@ -18,8 +18,8 @@ public class Routes {
         return () -> {
             path("/matches", matchRoutes.getRoutes());
             path("/teams", teamRoutes.getRoutes());// Tilføjer alle Team-endpoints under /api/teams
-              path("/players", playerRoutes.getRoutes());
-        }
+            path("/players", playerRoutes.getRoutes());
+        };
     }
 }
 
