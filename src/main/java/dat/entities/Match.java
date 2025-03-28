@@ -34,3 +34,4 @@ public class Match {
     @Column(name = "status")
     private String status;
 }
+

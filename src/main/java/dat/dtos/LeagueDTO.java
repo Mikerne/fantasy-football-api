@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 @Data
@@ -12,6 +13,6 @@ import java.time.LocalDate;
 public class LeagueDTO {
     private int id;
     private String name;
-    private LocalDate createdAt;
+    private Timestamp createdAt;
     private int ownerId;
 }
