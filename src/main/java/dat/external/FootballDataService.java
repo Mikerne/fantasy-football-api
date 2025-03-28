@@ -6,50 +6,26 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 public class FootballDataService {
 
-    private static final String API_KEY = "6fb941cb79mshc49238750e664d2p109109jsndf6b90eabaf6"; // <-- sæt din key ind her
-    private static final String BASE_URL = "https://api-football-v1.p.rapidapi.com/v3/";
-    private static final String API_HOST = "api-football-v1.p.rapidapi.com";
+    private static final String FOOTBALLDATA_API_KEY = "262343d711ec42bc89f246010e3a1bcc"; // <-- udskift
+    private static final String FOOTBALLDATA_BASE_URL = "https://api.football-data.org/v4/";
 
     private final ObjectMapper mapper = new ObjectMapper();
 
-    public JsonNode fetchMatches(String dateFrom) {
+    private JsonNode makeRequestFootballData(String endpoint) {
         try {
-            String endpoint = BASE_URL + "fixtures?date=" + dateFrom; // RapidAPI understøtter én dato pr. request
-            URL url = new URL(endpoint);
+            URL url = new URL(FOOTBALLDATA_BASE_URL + endpoint);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestProperty("X-RapidAPI-Key", API_KEY);
-            conn.setRequestProperty("X-RapidAPI-Host", API_HOST);
             conn.setRequestMethod("GET");
+            conn.setRequestProperty("X-Auth-Token", FOOTBALLDATA_API_KEY);
 
-            InputStream stream = conn.getResponseCode() >= 400 ? conn.getErrorStream() : conn.getInputStream();
-            Scanner scanner = new Scanner(stream).useDelimiter("\\A");
-            String response = scanner.hasNext() ? scanner.next() : "";
-
-            System.out.println("⚠️ FEJL-RESPONS s:");
-            System.out.println(response); // <-- Se hvad RapidAPI svarer
-
-
-            return mapper.readTree(response);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public JsonNode fetchMatchDetails(int matchId) {
-        try {
-            String endpoint = BASE_URL + "fixtures?id=" + matchId;
-            URL url = new URL(endpoint);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestProperty("X-RapidAPI-Key", API_KEY);
-            conn.setRequestProperty("X-RapidAPI-Host", API_HOST);
-            conn.setRequestMethod("GET");
-
-            InputStream responseStream = conn.getInputStream();
+            InputStream responseStream = conn.getResponseCode() >= 400 ? conn.getErrorStream() : conn.getInputStream();
             Scanner scanner = new Scanner(responseStream).useDelimiter("\\A");
             String response = scanner.hasNext() ? scanner.next() : "";
 
@@ -59,4 +35,135 @@ public class FootballDataService {
             return null;
         }
     }
+
+    //Laliga ID: 2014
+    public JsonNode getAllTeamsInLeaugeId(int leagueId) {
+        try {
+            String endpoint = "competitions/" + leagueId + "/teams";
+            return makeRequestFootballData(endpoint);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Integer getPlayerIdFromSofascore(String playerName) {
+        try {
+            String encoded = URLEncoder.encode(playerName, StandardCharsets.UTF_8);
+            String url = "https://api.sofascore.com/api/v1/search/multi?q=" + encoded;
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.readTree(new URL(url));
+            JsonNode results = root.get("results");
+
+            for (JsonNode result : results) {
+                if (!result.get("type").asText().equals("player")) continue;
+
+                JsonNode entity = result.get("entity");
+                if (entity == null || !entity.has("name")) continue;
+
+                String name = entity.get("name").asText();
+                if (name.equalsIgnoreCase(playerName)) {
+                    return entity.get("id").asInt();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("❌ Spilleren blev ikke fundet: " + playerName);
+        return null;
+    }
+
+
+    public Double getLatestPlayerRating(int playerId) {
+        try {
+            String url = "https://api.sofascore.com/api/v1/player/" + playerId + "/matches/last/0";
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.readTree(new URL(url));
+            JsonNode matches = root.get("events");
+
+            for (JsonNode match : matches) {
+                if (!match.has("playerStatistics")) continue;
+
+                JsonNode statistics = match.get("playerStatistics");
+                for (JsonNode teamStats : statistics) {
+                    for (JsonNode player : teamStats.get("players")) {
+                        if (player.get("player").get("id").asInt() == playerId) {
+                            if (player.has("rating")) {
+                                return player.get("rating").asDouble();
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("❌ Kunne ikke finde rating for spiller-ID: " + playerId);
+        return null;
+    }
+
+
+    public Double getLatestPlayerRatingByName(String playerName) {
+        Integer playerId = getPlayerIdFromSofascore(playerName);
+        if (playerId == null) return null;
+        return getLatestPlayerRating(playerId);
+    }
+
+
+    public JsonNode getTeamById(int teamId) {
+        try {
+            String endpoint = "teams/" + teamId;
+            return makeRequestFootballData(endpoint);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public JsonNode getTodayMatches() {
+        try {
+            LocalDate today = LocalDate.now();
+            String date = today.format(DateTimeFormatter.ISO_DATE);
+            String endpoint = "matches";
+
+            return makeRequestFootballData(endpoint);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+
+    public JsonNode getMatchDetails(int matchId) {
+        try {
+            String finalEndpoints = "matches/" + matchId;
+
+            return makeRequestFootballData(finalEndpoints);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String extractResultFrom(JsonNode matchData) {
+        try {
+            JsonNode score = matchData.get("score");
+            JsonNode fullTime = score.get("fullTime");
+
+            int homeTeamGoals = fullTime.get("home").asInt();
+            int awayTeamGoals = fullTime.get("away").asInt();
+
+            return homeTeamGoals + "-" + awayTeamGoals;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+
+
 }

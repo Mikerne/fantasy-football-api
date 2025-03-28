@@ -33,10 +33,6 @@ public class Team {
     @OneToMany(mappedBy = "team")
     private List<Player> players;
 
-    @OneToMany(mappedBy = "homeTeam")
-    private List<Match> homeMatches;
 
-    @OneToMany(mappedBy = "awayTeam")
-    private List<Match> awayMatches;
 
 }

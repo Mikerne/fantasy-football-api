@@ -3,6 +3,7 @@ package dat.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dat.controllers.impl.MatchController;
 import dat.daos.impl.MatchDAO;
+import dat.external.FootballDataService;
 import dat.routes.Routes;
 import dat.security.controllers.AccessController;
 import dat.security.controllers.SecurityController;
@@ -22,9 +23,8 @@ public class ApplicationConfig {
 
     private static final EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory();
 
-    //DAO
+    //DAO & Externals
     private static final MatchDAO matchDAO = new MatchDAO(emf);
-
     //Controllere
     private static final MatchController matchController = new MatchController(matchDAO);
 

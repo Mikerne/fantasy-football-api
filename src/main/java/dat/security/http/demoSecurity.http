@@ -2,7 +2,7 @@
 GET {{url}}/auth/test/
 
 ### Create a new user - this one will only get a USER role by default
-POST {{url}}/auth/register/
+POST localhost:7070/api/auth/register/
 
 {
     "username": "user",
@@ -10,7 +10,7 @@ POST {{url}}/auth/register/
 }
 
 ###
-POST {{url}}/auth/login/
+POST localhost:7070/api/auth/login/
 
 {
     "username": "user",
