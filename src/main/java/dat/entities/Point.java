@@ -28,5 +28,5 @@ public class Point {
 
     @Column(name = "earned_at")
     private Timestamp earnedAt;
-
 }
+
