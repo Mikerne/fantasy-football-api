@@ -2,30 +2,36 @@
 
 ### Get all players
 GET http://localhost:7070/fantasyfootball/api/players
+Accept: application/json
 
 ###
 
 ### Get a specific player
-GET http://localhost:7070/fantasyfootball/api/players/4
+GET http://localhost:7070/fantasyfootball/api/players/3
+Accept: application/json
 
 ###
 
-### Create a new player
+### Create a new player (Requires ADMIN)
 POST http://localhost:7070/fantasyfootball/api/players
 Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
 
 {
-  "name": "Lionel Messi",
+  "name": "Cristiano Ronaldo",
   "position": "Forward",
   "teamId": 1,
-  "performanceRating": 9.5
+  "performanceRating": 9
 }
 
 ###
 
-### Update a player
+### Update a player (Requires ADMIN)
 PUT http://localhost:7070/fantasyfootball/api/players/3
 Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
 
 {
   "name": "Updated Player Name",
@@ -36,5 +42,7 @@ Content-Type: application/json
 
 ###
 
-### Delete a player
+### Delete a player (Requires ADMIN)
 DELETE http://localhost:7070/fantasyfootball/api/players/4
+Accept: application/json
+Authorization: Bearer {{jwt_token}}

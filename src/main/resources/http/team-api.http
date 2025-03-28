@@ -1,18 +1,21 @@
 ### Team Endpoints
 
-### Get all teams
+### Hent alle teams (Alle brugere)
 GET http://localhost:7070/fantasyfootball/api/teams
+Authorization: Bearer {{jwt_token}}
 
 ###
 
-### Get a specific team
+### Hent et specifikt team (Alle brugere)
 GET http://localhost:7070/fantasyfootball/api/teams/1
+Authorization: Bearer {{jwt_token}}
 
 ###
 
-### Create a new team
+### Opret et nyt team (Kun ADMIN eller ejer)
 POST http://localhost:7070/fantasyfootball/api/teams
 Content-Type: application/json
+Authorization: Bearer {{jwt_token}}
 
 {
   "name": "Dream Team",
@@ -23,9 +26,10 @@ Content-Type: application/json
 
 ###
 
-### Update a team
+### Opdater et team (Kun ADMIN eller ejer)
 PUT http://localhost:7070/fantasyfootball/api/teams/1
 Content-Type: application/json
+Authorization: Bearer {{jwt_token}}
 
 {
   "name": "Updated Team Name"
@@ -33,5 +37,6 @@ Content-Type: application/json
 
 ###
 
-### Delete a team
+### Slet et team (Kun ADMIN eller ejer)
 DELETE http://localhost:7070/fantasyfootball/api/teams/1
+Authorization: Bearer {{jwt_token}}

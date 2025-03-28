@@ -30,7 +30,11 @@ public class SecurityDAO implements ISecurityDAO {
     @Override
     public UserDTO getVerifiedUser(String username, String password) throws ValidationException {
         try (EntityManager em = getEntityManager()) {
-            User user = em.find(User.class, username);
+            User user = em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
+                    .setParameter("username", username)
+                    .getResultStream()
+                    .findFirst()
+                    .orElse(null);
             if (user == null)
                 throw new EntityNotFoundException("No user found with username: " + username); //RuntimeException
             user.getRoles().size(); // force roles to be fetched from db
@@ -42,7 +46,12 @@ public class SecurityDAO implements ISecurityDAO {
     @Override
     public User createUser(String username, String password) {
         try (EntityManager em = getEntityManager()) {
-            User userEntity = em.find(User.class, username);
+            User userEntity = em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
+                    .setParameter("username", username)
+                    .getResultStream()
+                    .findFirst()
+                    .orElse(null);
+
             if (userEntity != null)
                 throw new EntityExistsException("User with username: " + username + " already exists");
             userEntity = new User(username, password);
@@ -63,7 +72,9 @@ public class SecurityDAO implements ISecurityDAO {
     @Override
     public User addRole(UserDTO userDTO, String newRole) {
         try (EntityManager em = getEntityManager()) {
-            User user = em.find(User.class, userDTO.getUsername());
+            User user = em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
+                    .setParameter("username", userDTO.getUsername())
+                    .getSingleResult();
             if (user == null)
                 throw new EntityNotFoundException("No user found with username: " + userDTO.getUsername());
             em.getTransaction().begin();
@@ -73,7 +84,7 @@ public class SecurityDAO implements ISecurityDAO {
                 em.persist(role);
             }
             user.addRole(role);
-            //em.merge(user);
+            em.merge(user);
             em.getTransaction().commit();
             return user;
         }
