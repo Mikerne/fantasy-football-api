@@ -20,13 +20,11 @@ public class Match {
     private Timestamp matchDate; // <--- ændret fra Date
 
 
-    @ManyToOne
-    @JoinColumn(name = "home_team", referencedColumnName = "id")
-    private Team homeTeam;
+    @Column(name = "home_team")
+    private String homeTeam;
 
-    @ManyToOne
-    @JoinColumn(name = "away_team", referencedColumnName = "id")
-    private Team awayTeam;
+    @Column(name = "away_team")
+    private String awayTeam;
 
     private String result;
 

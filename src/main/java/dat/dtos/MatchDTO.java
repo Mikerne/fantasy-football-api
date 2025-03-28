@@ -1,6 +1,5 @@
 package dat.dtos;
 
-import dat.entities.Team;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,10 +10,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MatchDTO {
-    private Integer id;
+    private int id;
     private LocalDate matchDate;
-    private Team homeTeam;
-    private Team awayTeam;
+    private String homeTeam;
+    private String awayTeam;
     private String result;
     private LocalDate createdAt;
     private String status;

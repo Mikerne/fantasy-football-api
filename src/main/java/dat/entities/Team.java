@@ -5,7 +5,7 @@ import dat.security.entities.User;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.sql.Timestamp;
+import java.security.Timestamp;
 import java.util.List;
 
 @Entity
