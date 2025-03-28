@@ -12,8 +12,8 @@ import java.time.LocalDate;
 public class MatchDTO {
     private int id;
     private LocalDate matchDate;
-    private int homeTeamId;
-    private int awayTeamId;
+    private String homeTeamId;
+    private String awayTeamId;
     private String result;
     private LocalDate createdAt;
 }
