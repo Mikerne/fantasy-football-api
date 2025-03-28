@@ -1,0 +1,40 @@
+### Player Endpoints
+
+### Get all players
+GET http://localhost:7070/fantasyfootball/api/players
+
+###
+
+### Get a specific player
+GET http://localhost:7070/fantasyfootball/api/players/4
+
+###
+
+### Create a new player
+POST http://localhost:7070/fantasyfootball/api/players
+Content-Type: application/json
+
+{
+  "name": "Lionel Messi",
+  "position": "Forward",
+  "teamId": 1,
+  "performanceRating": 9.5
+}
+
+###
+
+### Update a player
+PUT http://localhost:7070/fantasyfootball/api/players/3
+Content-Type: application/json
+
+{
+  "name": "Updated Player Name",
+  "position": "Midfielder",
+  "performanceRating": 8.7,
+  "teamId": 2
+}
+
+###
+
+### Delete a player
+DELETE http://localhost:7070/fantasyfootball/api/players/4

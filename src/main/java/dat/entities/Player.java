@@ -20,7 +20,6 @@ public class Player {
     @Column(nullable = false)
     private String position;
 
-    // Diagrammet siger "string team", men relationen "can be part of" antyder, at en spiller hører til et team.
     @ManyToOne
     @JoinColumn(name = "team_id", nullable = false)
     private Team team;

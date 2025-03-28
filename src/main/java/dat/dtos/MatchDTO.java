@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MatchDTO {
-    private int id;
+    private Integer id;
     private LocalDate matchDate;
     private Team homeTeam;
     private Team awayTeam;
