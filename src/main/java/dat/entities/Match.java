@@ -7,33 +7,30 @@ import lombok.Data;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
-
 @Entity
 @Table(name = "MATCHES")
 @Data
 public class Match {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "id")
+    private int id; // <-- ikke længere auto-genereret
 
     @Column(name = "match_date")
-    private Date matchDate;
-
-    @ManyToOne
-    @JoinColumn(name = "home_team")
-    private Team homeTeam;
+    private Timestamp matchDate; // <--- ændret fra Date
 
 
-    @ManyToOne
-    @JoinColumn(name = "away_team")
-    private Team awayTeam;
+    @Column(name = "home_team")
+    private String homeTeam;
+
+    @Column(name = "away_team")
+    private String awayTeam;
 
     private String result;
 
     @Column(name = "created_at")
     private Timestamp createdAt;
 
-    @OneToMany(mappedBy = "match")
-    private List<Point> points;
+    @Column(name = "status")
+    private String status;
 }
