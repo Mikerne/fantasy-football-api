@@ -23,6 +23,7 @@ public class MatchController {
 
     public void importTodayMatches(Context ctx) {
         JsonNode todayMatches = footballDataService.getTodayMatches();
+        System.out.println(todayMatches);
         matchDAO.saveTodayMatches(todayMatches);
         System.out.println("✅ Dagens kampe er gemt i databasen.");
     }

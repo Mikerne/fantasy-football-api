@@ -123,6 +123,7 @@ public class FootballDataService {
     }
 
     public JsonNode getTodayMatches() {
+        System.out.println("Forøger at hente kampe?");
         try {
             LocalDate today = LocalDate.now();
             String date = today.format(DateTimeFormatter.ISO_DATE);
