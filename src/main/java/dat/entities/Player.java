@@ -1,25 +1,29 @@
 package dat.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
-@Table(name = "PLAYERS")
+@Table(name = "players")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Player {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private String position;
 
     @ManyToOne
-    @JoinColumn(name = "team_id")
+    @JoinColumn(name = "team_id", nullable = false)
     private Team team;
 
-    @Column(name = "performance_rating")
-    private int performanceRating;
-
+    @Column(name = "performance_rating", nullable = false)
+    private Double performanceRating;
 }

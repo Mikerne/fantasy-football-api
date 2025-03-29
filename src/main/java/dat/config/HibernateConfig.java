@@ -1,6 +1,7 @@
 package dat.config;
 
 import dat.entities.*;
+//import dat.security.entities.Role;
 import dat.security.entities.Role;
 import dat.security.entities.User;
 import dat.utils.Utils;
