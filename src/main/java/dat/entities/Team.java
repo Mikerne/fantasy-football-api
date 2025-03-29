@@ -5,7 +5,8 @@ import dat.security.entities.User;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.sql.Timestamp; // hvis du vil matche database-TIMESTAMP
+
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -32,11 +33,5 @@ public class Team {
 
     @OneToMany(mappedBy = "team")
     private List<Player> players;
-
-    @OneToMany(mappedBy = "homeTeam")
-    private List<Match> homeMatches;
-
-    @OneToMany(mappedBy = "awayTeam")
-    private List<Match> awayMatches;
 
 }
