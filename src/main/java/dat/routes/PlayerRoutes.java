@@ -17,7 +17,7 @@ public class PlayerRoutes {
 
     protected EndpointGroup getRoutes() {
         return () -> {
-            get(playerController::readAll, Role.ANYONE);                   // GET /api/teams
+            get(playerController::readAll, Role.USER);                   // GET /api/teams
             post(playerController::create, Role.ADMIN);                   // POST /api/teams
             path("/{id}", () -> {
                 get(playerController::read);                  // GET /api/teams/{id}

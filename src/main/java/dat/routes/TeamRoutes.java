@@ -19,11 +19,11 @@ public class TeamRoutes {
     protected EndpointGroup getRoutes() {
         return () -> {
             get(teamController::readAll);                   // GET /api/teams
-            post(teamController::create, Role.USER);                   // POST /api/teams
+            post(teamController::create, Role.ADMIN);                   // POST /api/teams
             path("/{id}", () -> {
                 get(teamController::read);                  // GET /api/teams/{id}
-                put(teamController::update, Role.ADMIN, Role.USER);                // PUT /api/teams/{id}
-                delete(teamController::delete, Role.ADMIN, Role.USER);             // DELETE /api/teams/{id}
+                put(teamController::update, Role.ADMIN);                // PUT /api/teams/{id}
+                delete(teamController::delete, Role.ADMIN);             // DELETE /api/teams/{id}
             });
         };
     }
