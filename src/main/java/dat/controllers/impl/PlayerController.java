@@ -4,7 +4,6 @@ import dat.config.HibernateConfig;
 import dat.controllers.IController;
 import dat.daos.PlayerDAO;
 import dat.dtos.PlayerDTO;
-import dat.entities.Player;
 import io.javalin.http.Context;
 import jakarta.persistence.EntityManagerFactory;
 import org.slf4j.Logger;
@@ -17,7 +16,7 @@ public class PlayerController implements IController<PlayerDTO, Integer> {
     private static final Logger logger = LoggerFactory.getLogger(PlayerController.class);
     private final PlayerDAO playerDAO;
 
-    public PlayerController() {
+    public PlayerController(PlayerDAO playerDAO) {
         EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory();
         this.playerDAO = PlayerDAO.getInstance(emf);
     }

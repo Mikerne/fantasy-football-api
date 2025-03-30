@@ -1,9 +1,9 @@
 package dat.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dat.controllers.impl.LeagueController;
-import dat.controllers.impl.MatchController;
-import dat.controllers.impl.PointController;
+import dat.controllers.impl.*;
+import dat.daos.PlayerDAO;
+import dat.daos.TeamDAO;
 import dat.daos.impl.LeaugeDAO;
 import dat.daos.impl.MatchDAO;
 import dat.daos.impl.PointDAO;
@@ -12,6 +12,7 @@ import dat.external.FootballDataService;
 import dat.routes.Routes;
 import dat.security.controllers.AccessController;
 import dat.security.controllers.SecurityController;
+import dat.security.daos.SecurityDAO;
 import dat.security.enums.Role;
 import dat.security.exceptions.ApiException;
 import dat.security.routes.SecurityRoutes;
@@ -32,18 +33,28 @@ public class ApplicationConfig {
     private static final MatchDAO matchDAO = new MatchDAO(emf);
     private static final PointDAO pointDAO = new PointDAO(emf);
     private static final LeaugeDAO leaugeDAO = new LeaugeDAO(emf);
+    private static final PlayerDAO playerDAO = new PlayerDAO(emf);
+    private static final TeamDAO teamDAO = new TeamDAO(emf);
+    private static final SecurityDAO securityDAO = new SecurityDAO(emf);
     //Controllere
     private static final MatchController matchController = new MatchController(matchDAO);
     private static final PointController pointController = new PointController(pointDAO);
     private static final LeagueController leagueController = new LeagueController(leaugeDAO);
+    private static final PlayerController playerController = new PlayerController(playerDAO);
+    private static final TeamController teamController = new TeamController(teamDAO);
+    private static final SecurityController securityController = new SecurityController(securityDAO);
+
     //Her tilføjes andre controllere
     private static final Routes routes = new Routes(
             matchController,
             pointController,
-            leagueController
-    );
+            leagueController,
+            teamController,
+            playerController
+
+
+            );
     private static ObjectMapper jsonMapper = new Utils().getObjectMapper();
-    private static SecurityController securityController = SecurityController.getInstance();
     private static AccessController accessController = new AccessController();
     private static Logger logger = LoggerFactory.getLogger(ApplicationConfig.class);
     private static int count = 1;

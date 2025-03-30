@@ -17,7 +17,7 @@ public class PlayerDAO implements IDAO<PlayerDTO, Integer> {
     private static PlayerDAO instance;
     private static EntityManagerFactory emf;
 
-    private PlayerDAO(EntityManagerFactory emf) {
+    public PlayerDAO(EntityManagerFactory emf) {
         PlayerDAO.emf = emf;
     }
 

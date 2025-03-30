@@ -16,7 +16,7 @@ public class TeamController implements IController<TeamDTO, Integer> {
     private static final Logger logger = LoggerFactory.getLogger(TeamController.class);
     private final TeamDAO teamDAO;
 
-    public TeamController() {
+    public TeamController(TeamDAO teamDAO) {
         EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory();
         this.teamDAO = TeamDAO.getInstance(emf);
     }

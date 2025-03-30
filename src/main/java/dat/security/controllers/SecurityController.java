@@ -36,15 +36,15 @@ import java.util.stream.Collectors;
 public class SecurityController implements ISecurityController {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final ITokenSecurity tokenSecurity = new TokenSecurity();
-    private static ISecurityDAO securityDAO;
+    private static SecurityDAO securityDAO;
     private static SecurityController instance;
     private static final Logger logger = LoggerFactory.getLogger(SecurityController.class);
 
-    private SecurityController() { }
+    public SecurityController(SecurityDAO securityDAO) { }
 
     public static SecurityController getInstance() {
         if (instance == null) {
-            instance = new SecurityController();
+            instance = new SecurityController(securityDAO);
         }
         securityDAO = new SecurityDAO(HibernateConfig.getEntityManagerFactory());
         return instance;

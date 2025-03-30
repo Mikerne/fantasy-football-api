@@ -7,7 +7,7 @@ Accept: application/json
 ###
 
 ### Get a specific player
-GET http://localhost:7070/fantasyfootball/api/players/1
+GET http://localhost:7070/fantasyfootball/api/players/2
 Accept: application/json
 
 ###

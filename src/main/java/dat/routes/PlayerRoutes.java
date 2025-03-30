@@ -4,13 +4,16 @@ import dat.controllers.impl.PlayerController;
 import dat.security.enums.Role;
 import io.javalin.apibuilder.EndpointGroup;
 
-import static dat.security.enums.Role.ANYONE;
 import static io.javalin.apibuilder.ApiBuilder.*;
 import static io.javalin.apibuilder.ApiBuilder.delete;
 
 public class PlayerRoutes {
 
-    private final PlayerController playerController = new PlayerController();
+    private final PlayerController playerController;
+
+    public PlayerRoutes(PlayerController playerController) {
+        this.playerController = playerController;
+    }
 
     protected EndpointGroup getRoutes() {
         return () -> {

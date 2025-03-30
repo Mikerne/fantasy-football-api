@@ -7,7 +7,7 @@ Authorization: Bearer {{jwt_token}}
 ###
 
 ### Hent et specifikt team (Alle brugere)
-GET http://localhost:7070/fantasyfootball/api/teams/3
+GET http://localhost:7070/fantasyfootball/api/teams/1
 Authorization: Bearer {{jwt_token}}
 
 ###
@@ -18,7 +18,7 @@ Content-Type: application/json
 Authorization: Bearer {{jwt_token}}
 
 {
-  "name": "Real Madrid",
+  "name": "FC Midtjylland",
   "createdAt": "2025-03-26T12:00:00",
   "creatorId": 1,
   "leagueId": 1

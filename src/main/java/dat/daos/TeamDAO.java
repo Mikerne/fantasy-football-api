@@ -18,7 +18,7 @@ public class TeamDAO implements IDAO<TeamDTO, Integer> {
     private static TeamDAO instance;
     private static EntityManagerFactory emf;
 
-    private TeamDAO(EntityManagerFactory emf) {
+    public TeamDAO(EntityManagerFactory emf) {
         TeamDAO.emf = emf;
     }
 
