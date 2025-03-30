@@ -23,7 +23,7 @@ class PlayerDAOTest {
 
     @BeforeAll
     static void setup() {
-        EntityManagerFactory emf = HibernateConfig.createNewTestEMF();
+        emf = HibernateConfig.createNewTestEMF();
         em = emf.createEntityManager();
         playerDAO = PlayerDAO.getInstance(emf);
 

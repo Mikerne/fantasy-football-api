@@ -26,7 +26,7 @@ class TeamDAOTest {
     @BeforeAll
     static void setUpClass() {
         // Brug testdatabasen
-        EntityManagerFactory emf = HibernateConfig.createNewTestEMF();
+        emf = HibernateConfig.createNewTestEMF();
         teamDAO = TeamDAO.getInstance(emf);
 
         // Opret testbruger og liga
