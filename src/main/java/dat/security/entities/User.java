@@ -84,5 +84,7 @@ public class User implements Serializable, ISecurityUser {
                     role.getUsers().remove(this);
                 });
     }
+
+
 }
 
