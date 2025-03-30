@@ -5,7 +5,7 @@ import dat.security.entities.User;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.sql.Timestamp;
+import java.sql.Timestamp; // hvis du vil matche database-TIMESTAMP
 import java.util.List;
 
 @Entity
@@ -15,7 +15,7 @@ public class League {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     private String name;
 

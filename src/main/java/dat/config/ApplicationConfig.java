@@ -1,6 +1,12 @@
 package dat.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dat.controllers.impl.MatchController;
+import dat.controllers.impl.PointController;
+import dat.daos.impl.MatchDAO;
+import dat.daos.impl.PointDAO;
+import dat.entities.Point;
+import dat.external.FootballDataService;
 import dat.routes.Routes;
 import dat.security.controllers.AccessController;
 import dat.security.controllers.SecurityController;
@@ -11,12 +17,26 @@ import dat.utils.Utils;
 import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ApplicationConfig {
 
-    private static Routes routes = new Routes();
+    private static final EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory();
+
+    //DAO & Externals
+    private static final MatchDAO matchDAO = new MatchDAO(emf);
+    private static final PointDAO pointDAO = new PointDAO(emf);
+    //Controllere
+    private static final MatchController matchController = new MatchController(matchDAO);
+    private static final PointController pointController = new PointController(pointDAO);
+    //Her tilføjes andre controllere
+    private static final Routes routes = new Routes(
+            matchController,
+            pointController
+    );
     private static ObjectMapper jsonMapper = new Utils().getObjectMapper();
     private static SecurityController securityController = SecurityController.getInstance();
     private static AccessController accessController = new AccessController();
@@ -62,5 +82,13 @@ public class ApplicationConfig {
         ctx.status(e.getCode());
         logger.warn("An API exception occurred: Code: {}, Message: {}", e.getCode(), e.getMessage());
         ctx.json(Utils.convertToJsonMessage(ctx, "warning", e.getMessage()));
+    }
+
+    public static EntityManagerFactory getEmf() {
+        return emf;
+    }
+
+    public static MatchDAO getMatchDAO() {
+        return matchDAO;
     }
 }

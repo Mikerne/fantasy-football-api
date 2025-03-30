@@ -33,11 +33,12 @@ Her er de vigtigste endpoints, opdelt efter funktionalitet:
 - `POST /api/matches` – Tilføj en ny kamp (kun ADMIN)
 - `PUT /api/matches/{id}` – Opdater en kamp (kun ADMIN)
 - `DELETE /api/matches/{id}` – Slet en kamp (kun ADMIN)
+- `DELETE /api/matches` – Slet alle kampe (kun ADMIN)
 
 ## Point og Scoring
 - `GET /api/points` – Hent alle brugeres point
 - `GET /api/points/{userId}` – Hent point for en specifik bruger
-- `POST /api/points` – Tilføj point til en bruger (kun ADMIN)
+- `POST /api/points` – Tilføj point til en bruger (kun ADMIN) / Hvis user ikke findes bliver der oprettet en ny row
 
 ## Ligaer
 - `GET /api/leagues` – Hent alle ligaer

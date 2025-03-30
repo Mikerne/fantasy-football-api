@@ -4,7 +4,7 @@ import dat.security.entities.User;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.sql.Timestamp;
+import java.sql.Timestamp; // hvis du vil matche database-TIMESTAMP
 
 @Entity
 @Table(name = "POINTS")
@@ -28,5 +28,4 @@ public class Point {
 
     @Column(name = "earned_at")
     private Timestamp earnedAt;
-
 }
