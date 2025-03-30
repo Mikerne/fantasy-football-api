@@ -6,11 +6,14 @@ import dat.daos.TeamDAO;
 import dat.dtos.TeamDTO;
 import io.javalin.http.Context;
 import jakarta.persistence.EntityManagerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class TeamController implements IController<TeamDTO, Integer> {
 
+    private static final Logger logger = LoggerFactory.getLogger(TeamController.class);
     private final TeamDAO teamDAO;
 
     public TeamController() {
@@ -26,17 +29,27 @@ public class TeamController implements IController<TeamDTO, Integer> {
             if (team != null) {
                 ctx.json(team);
             } else {
-                ctx.status(404).result("Team not found");
+                logger.warn("Forsøgte at hente team med id {}, men det blev ikke fundet.", id);
+                ctx.status(404).result("Hold med id " + id + " blev ikke fundet.");
             }
         } catch (NumberFormatException e) {
-            ctx.status(400).result("Invalid ID");
+            logger.error("Ugyldigt id format ved hentning: {}", ctx.pathParam("id"), e);
+            ctx.status(400).result("Ugyldigt id format. Id skal være et heltal.");
+        } catch (Exception e) {
+            logger.error("Fejl ved hentning af team med id {}", ctx.pathParam("id"), e);
+            ctx.status(500).result("Der opstod en intern fejl ved hentning af holdet.");
         }
     }
 
     @Override
     public void readAll(Context ctx) {
-        List<TeamDTO> teams = teamDAO.readAll();
-        ctx.json(teams);
+        try {
+            List<TeamDTO> teams = teamDAO.readAll();
+            ctx.json(teams);
+        } catch (Exception e) {
+            logger.error("Fejl ved hentning af alle teams", e);
+            ctx.status(500).result("Der opstod en intern fejl ved hentning af holdene.");
+        }
     }
 
     @Override
@@ -47,11 +60,12 @@ public class TeamController implements IController<TeamDTO, Integer> {
             if (createdTeam != null) {
                 ctx.status(201).json(createdTeam);
             } else {
-                ctx.status(400).result("Failed to create team");
+                logger.warn("Oprettelse mislykkedes for team: {}", teamDTO);
+                ctx.status(400).result("Kunne ikke oprette hold. Tjek at alle nødvendige data er inkluderet.");
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            ctx.status(500).result("Failed to create team");
+            logger.error("Fejl ved oprettelse af team", e);
+            ctx.status(500).result("Der opstod en intern fejl ved oprettelsen af holdet.");
         }
     }
 
@@ -64,13 +78,15 @@ public class TeamController implements IController<TeamDTO, Integer> {
             if (updatedTeam != null) {
                 ctx.json(updatedTeam);
             } else {
-                ctx.status(404).result("Team not found");
+                logger.warn("Opdatering mislykkedes: Team med id {} blev ikke fundet eller kunne ikke opdateres.", id);
+                ctx.status(404).result("Hold med id " + id + " blev ikke fundet eller kunne ikke opdateres.");
             }
         } catch (NumberFormatException e) {
-            ctx.status(400).result("Invalid ID");
+            logger.error("Ugyldigt id format ved opdatering: {}", ctx.pathParam("id"), e);
+            ctx.status(400).result("Ugyldigt id format. Id skal være et heltal.");
         } catch (Exception e) {
-            e.printStackTrace();
-            ctx.status(500).result("Failed to update team");
+            logger.error("Fejl ved opdatering af team med id {}", ctx.pathParam("id"), e);
+            ctx.status(500).result("Der opstod en intern fejl ved opdateringen af holdet.");
         }
     }
 
@@ -81,12 +97,17 @@ public class TeamController implements IController<TeamDTO, Integer> {
             boolean exists = teamDAO.validatePrimaryKey(id);
             if (exists) {
                 teamDAO.delete(id);
-                ctx.status(204).result("Team deleted");
+                ctx.status(204).result("Hold slettet");
             } else {
-                ctx.status(404).result("Team not found");
+                logger.warn("Sletning mislykkedes: Hold med id {} findes ikke.", id);
+                ctx.status(404).result("Hold med id " + id + " blev ikke fundet.");
             }
         } catch (NumberFormatException e) {
-            ctx.status(400).result("Invalid ID");
+            logger.error("Ugyldigt id format ved sletning: {}", ctx.pathParam("id"), e);
+            ctx.status(400).result("Ugyldigt id format. Id skal være et heltal.");
+        } catch (Exception e) {
+            logger.error("Fejl ved sletning af team med id {}", ctx.pathParam("id"), e);
+            ctx.status(500).result("Der opstod en intern fejl ved sletningen af holdet.");
         }
     }
 
@@ -100,6 +121,7 @@ public class TeamController implements IController<TeamDTO, Integer> {
         try {
             return ctx.bodyAsClass(TeamDTO.class);
         } catch (Exception e) {
+            logger.error("Fejl ved validering af teamdata", e);
             return null;
         }
     }

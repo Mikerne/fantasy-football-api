@@ -5,9 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 import java.sql.Timestamp;
-import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -25,6 +23,5 @@ public class TeamDTO {
         this.createdAt = team.getCreatedAt();
         this.creatorId = team.getCreator().getId();
         this.leagueId = team.getLeague() != null ? team.getLeague().getId() : null;
-
-}
+    }
 }
