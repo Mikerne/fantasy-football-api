@@ -130,4 +130,16 @@ public class MatchDAO {
         }
         return false;
     }
+
+
+    public void deleteAllMatches() {
+        try (EntityManager em = emf.createEntityManager()) {
+            EntityTransaction tx = em.getTransaction();
+            tx.begin();
+            em.createQuery("DELETE FROM Match").executeUpdate();
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

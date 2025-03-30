@@ -24,6 +24,7 @@ public class MatchRoutes {
             get("{id}", matchController::getMatchFromId);
             put("{id}", matchController::updateMatch, Role.ADMIN);
             delete("{id}", matchController::deleteMatch, Role.ADMIN);
+            delete("", matchController::deleteAllMatches, Role.ADMIN);
         };
     }
 }

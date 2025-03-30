@@ -39,6 +39,11 @@ public class MatchController {
         ctx.status(status ? 204 : 404);
     }
 
+    public void deleteAllMatches(Context ctx) {
+        matchDAO.deleteAllMatches();
+        ctx.status(204);
+    }
+
     public void getMatchFromId(Context ctx) {
         int id = Integer.parseInt(ctx.pathParam("id"));
         Match match = matchDAO.read(id);
