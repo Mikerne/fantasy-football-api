@@ -27,20 +27,26 @@ class PlayerControllerTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        // Open mocks for the annotations
         MockitoAnnotations.openMocks(this);
 
-        // Mock EntityManagerFactory to avoid the real initialization logic
+        // Mock EntityManagerFactory for at undgå den reelle initialisering
         EntityManagerFactory emf = mock(EntityManagerFactory.class);
 
-        // Use the mocked EntityManagerFactory to initialize PlayerDAO
-        PlayerDAO playerDAO = PlayerDAO.getInstance(emf);
+        // Brug den mocked EntityManagerFactory til at initialisere PlayerDAO
+        playerDAO = PlayerDAO.getInstance(emf);
 
-        // Manually create the PlayerController with the mocked PlayerDAO
+        // Manuelt opret PlayerController med den mocked PlayerDAO
         playerController = new PlayerController(playerDAO);
 
+        // Brug reflection til at sætte den mocked playerDAO i PlayerController
+        Field daoField = PlayerController.class.getDeclaredField("playerDAO");
+        daoField.setAccessible(true);
+        daoField.set(playerController, playerDAO);
+
+        // Mock status-metoden, så den returnerer ctx (for method chaining)
         when(ctx.status(anyInt())).thenReturn(ctx);
     }
+
 
     @Test
     void readSuccess() {

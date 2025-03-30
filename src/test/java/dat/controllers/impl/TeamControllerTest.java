@@ -40,19 +40,20 @@ class TeamControllerTest {
         EntityManagerFactory emf = mock(EntityManagerFactory.class);
 
         // Brug den mocked EntityManagerFactory til at initialisere TeamDAO
-        TeamDAO teamDAO = TeamDAO.getInstance(emf);
+        teamDAO = TeamDAO.getInstance(emf);  // Brug den mocked DAO i stedet for en ny instans
 
         // Manuelt opret TeamController med den mocked TeamDAO
         teamController = new TeamController(teamDAO);
 
-        // Brug reflection til at sætte den mocked TeamDAO i TeamController
+        // Brug reflection til at sætte den mocked teamDAO i TeamController
         Field daoField = TeamController.class.getDeclaredField("teamDAO");
         daoField.setAccessible(true);
-        daoField.set(teamController, teamDAO);
+        daoField.set(teamController, teamDAO);  // Sørg for at injicere den mocked DAO
 
         // Mock status-metoden, så den returnerer ctx (for method chaining)
         when(ctx.status(anyInt())).thenReturn(ctx);
     }
+
 
 
 
