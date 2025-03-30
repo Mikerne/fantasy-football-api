@@ -6,6 +6,7 @@ import dat.entities.League;
 import dat.entities.Team;
 import dat.security.entities.User;
 import io.javalin.http.Context;
+import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
@@ -35,17 +36,24 @@ class TeamControllerTest {
     void setUp() throws Exception {
         MockitoAnnotations.openMocks(this);
 
-        // Opret en instans af TeamController
+        // Mock EntityManagerFactory for at undgå den reelle initialisering
+        EntityManagerFactory emf = mock(EntityManagerFactory.class);
+
+        // Brug den mocked EntityManagerFactory til at initialisere TeamDAO
+        TeamDAO teamDAO = TeamDAO.getInstance(emf);
+
+        // Manuelt opret TeamController med den mocked TeamDAO
         teamController = new TeamController(teamDAO);
 
-        // Brug reflection til at sætte vores mock DAO i stedet for den rigtige DAO
+        // Brug reflection til at sætte den mocked TeamDAO i TeamController
         Field daoField = TeamController.class.getDeclaredField("teamDAO");
         daoField.setAccessible(true);
         daoField.set(teamController, teamDAO);
 
-        // Mock status-metoden så den returnerer ctx (for method chaining)
+        // Mock status-metoden, så den returnerer ctx (for method chaining)
         when(ctx.status(anyInt())).thenReturn(ctx);
     }
+
 
 
     @Test

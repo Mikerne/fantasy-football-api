@@ -3,6 +3,7 @@ package dat.controllers.impl;
 import dat.daos.PlayerDAO;
 import dat.dtos.PlayerDTO;
 import io.javalin.http.Context;
+import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
@@ -26,13 +27,19 @@ class PlayerControllerTest {
 
     @BeforeEach
     void setUp() throws Exception {
+        // Open mocks for the annotations
         MockitoAnnotations.openMocks(this);
-        // Ved konstruktion oprettes en rigtig DAO, som vi herefter erstatter med vores mock via reflection.
-        Field daoField = PlayerController.class.getDeclaredField("playerDAO");
-        daoField.setAccessible(true);
-        daoField.set(playerController, playerDAO);
-        when(ctx.status(anyInt())).thenReturn(ctx);
 
+        // Mock EntityManagerFactory to avoid the real initialization logic
+        EntityManagerFactory emf = mock(EntityManagerFactory.class);
+
+        // Use the mocked EntityManagerFactory to initialize PlayerDAO
+        PlayerDAO playerDAO = PlayerDAO.getInstance(emf);
+
+        // Manually create the PlayerController with the mocked PlayerDAO
+        playerController = new PlayerController(playerDAO);
+
+        when(ctx.status(anyInt())).thenReturn(ctx);
     }
 
     @Test
