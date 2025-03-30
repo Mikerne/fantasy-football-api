@@ -38,5 +38,5 @@ Authorization: Bearer {{jwt_token}}
 ###
 
 ### Slet et team (Kun ADMIN eller ejer)
-DELETE http://localhost:7070/fantasyfootball/api/teams/3
+DELETE http://localhost:7070/fantasyfootball/api/teams/2
 Authorization: Bearer {{jwt_token}}
