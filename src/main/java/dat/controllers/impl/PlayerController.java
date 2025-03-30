@@ -7,18 +7,20 @@ import dat.dtos.PlayerDTO;
 import dat.entities.Player;
 import io.javalin.http.Context;
 import jakarta.persistence.EntityManagerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class PlayerController implements IController<PlayerDTO, Integer> {
 
+    private static final Logger logger = LoggerFactory.getLogger(PlayerController.class);
     private final PlayerDAO playerDAO;
 
     public PlayerController() {
         EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory();
         this.playerDAO = PlayerDAO.getInstance(emf);
     }
-
 
     @Override
     public void read(Context ctx) {
@@ -28,10 +30,14 @@ public class PlayerController implements IController<PlayerDTO, Integer> {
             if (player != null) {
                 ctx.json(player);
             } else {
-                ctx.status(400).result("Player not found");
+                ctx.status(404).result("Spiller med id " + id + " blev ikke fundet.");
             }
+        } catch (NumberFormatException nfe) {
+            logger.error("Ugyldigt id format: {}", ctx.pathParam("id"), nfe);
+            ctx.status(400).result("Ugyldigt id format. Id skal være et heltal.");
         } catch (Exception e) {
-            ctx.status(400).result("Invalid ID");
+            logger.error("Fejl ved hentning af spiller", e);
+            ctx.status(500).result("Der opstod en intern fejl ved hentning af spilleren.");
         }
     }
 
@@ -41,22 +47,25 @@ public class PlayerController implements IController<PlayerDTO, Integer> {
             List<PlayerDTO> players = playerDAO.readAll();
             ctx.json(players);
         } catch (Exception e) {
-            ctx.status(400).result("Could not find any players");
+            logger.error("Fejl ved hentning af alle spillere", e);
+            ctx.status(500).result("Der opstod en intern fejl ved hentning af spillerne.");
         }
     }
 
     @Override
     public void create(Context ctx) {
         try {
-            PlayerDTO playerDTO =  ctx.bodyAsClass(PlayerDTO.class);
+            PlayerDTO playerDTO = ctx.bodyAsClass(PlayerDTO.class);
             PlayerDTO createdPlayer = playerDAO.create(playerDTO);
             if (createdPlayer != null) {
-                ctx.json(createdPlayer);
+                ctx.status(201).json(createdPlayer);
             } else {
-                ctx.status(400).result("Could not create player");
+                logger.warn("Oprettelse mislykkedes for spiller: {}", playerDTO);
+                ctx.status(400).result("Kunne ikke oprette spiller. Tjek at alle nødvendige data er inkluderet.");
             }
         } catch (Exception e) {
-            ctx.status(400).result("Could not create player");
+            logger.error("Fejl ved oprettelse af spiller", e);
+            ctx.status(500).result("Der opstod en intern fejl ved oprettelsen af spilleren.");
         }
     }
 
@@ -69,10 +78,15 @@ public class PlayerController implements IController<PlayerDTO, Integer> {
             if (updatedPlayer != null) {
                 ctx.json(updatedPlayer);
             } else {
-                ctx.status(400).result("Could not update player");
+                logger.warn("Opdatering mislykkedes for spiller med id: {}", id);
+                ctx.status(404).result("Spiller med id " + id + " blev ikke fundet eller kunne ikke opdateres.");
             }
+        } catch (NumberFormatException nfe) {
+            logger.error("Ugyldigt id format: {}", ctx.pathParam("id"), nfe);
+            ctx.status(400).result("Ugyldigt id format. Id skal være et heltal.");
         } catch (Exception e) {
-            ctx.status(400).result("Could not update player");
+            logger.error("Fejl ved opdatering af spiller", e);
+            ctx.status(500).result("Der opstod en intern fejl ved opdateringen af spilleren.");
         }
     }
 
@@ -83,12 +97,17 @@ public class PlayerController implements IController<PlayerDTO, Integer> {
             boolean exists = playerDAO.validatePrimaryKey(id);
             if (exists) {
                 playerDAO.delete(id);
-                ctx.status(204).result("Player deleted");
+                ctx.status(204).result("Spiller slettet");
             } else {
-                ctx.status(400).result("Player not found");
+                logger.warn("Sletning mislykkedes: Spiller med id {} findes ikke.", id);
+                ctx.status(404).result("Spiller med id " + id + " blev ikke fundet.");
             }
-        }  catch (Exception e) {
-            ctx.status(400).result("Could not delete player");
+        } catch (NumberFormatException nfe) {
+            logger.error("Ugyldigt id format ved sletning: {}", ctx.pathParam("id"), nfe);
+            ctx.status(400).result("Ugyldigt id format. Id skal være et heltal.");
+        } catch (Exception e) {
+            logger.error("Fejl ved sletning af spiller", e);
+            ctx.status(500).result("Der opstod en intern fejl ved sletningen af spilleren.");
         }
     }
 
@@ -102,6 +121,7 @@ public class PlayerController implements IController<PlayerDTO, Integer> {
         try {
             return ctx.bodyAsClass(PlayerDTO.class);
         } catch (Exception e) {
+            logger.error("Fejl ved validering af spillerdata", e);
             return null;
         }
     }

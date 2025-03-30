@@ -25,6 +25,7 @@ public class User implements Serializable, ISecurityUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Basic(optional = false)
     @Column(name = "password")
     private String password;
