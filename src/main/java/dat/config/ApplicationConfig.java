@@ -46,7 +46,7 @@ public class ApplicationConfig {
     public static void configuration(JavalinConfig config) {
         config.showJavalinBanner = false;
         config.bundledPlugins.enableRouteOverview("/routes", Role.ANYONE);
-        config.router.contextPath = "/api"; // base path for all endpoints
+        config.router.contextPath = "/fantasyfootball/api"; // base path for all endpoints
         config.router.apiBuilder(routes.getRoutes());
         config.router.apiBuilder(SecurityRoutes.getSecuredRoutes());
         config.router.apiBuilder(SecurityRoutes.getSecurityRoutes());

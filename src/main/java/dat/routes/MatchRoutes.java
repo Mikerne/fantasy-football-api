@@ -16,8 +16,12 @@ public class MatchRoutes {
     public EndpointGroup getRoutes() {
         return () -> {
             get("", matchController::getAllMatches);
-            get("{id}", matchController::getMatchFromId);
             post("import", matchController::importTodayMatches);
+            get("import", ctx -> {
+                matchController.importTodayMatches(ctx);
+                ctx.result("Import triggered via GET");
+            });
+            get("{id}", matchController::getMatchFromId);
             put("{id}", matchController::updateMatch, Role.ADMIN);
             delete("{id}", matchController::deleteMatch, Role.ADMIN);
         };

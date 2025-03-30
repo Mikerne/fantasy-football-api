@@ -11,6 +11,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 public class FootballDataService {
 
     private static final String FOOTBALLDATA_API_KEY = "262343d711ec42bc89f246010e3a1bcc"; // <-- udskift
@@ -123,17 +129,31 @@ public class FootballDataService {
     }
 
     public JsonNode getTodayMatches() {
+        System.out.println("Forsøger at hente kampe?");
         try {
-            LocalDate today = LocalDate.now();
-            String date = today.format(DateTimeFormatter.ISO_DATE);
             String endpoint = "matches";
+            JsonNode response = makeRequestFootballData(endpoint);
 
-            return makeRequestFootballData(endpoint);
+            if (response != null && response.has("matches")) {
+                ArrayNode allMatches = (ArrayNode) response.get("matches");
+                ArrayNode firstFiveMatches = mapper.createArrayNode();
+
+                for (int i = 0; i < Math.min(5, allMatches.size()); i++) {
+                    firstFiveMatches.add(allMatches.get(i));
+                }
+
+                ObjectNode limitedResponse = mapper.createObjectNode();
+                limitedResponse.set("matches", firstFiveMatches);
+                return limitedResponse;
+            }
+
+            return null;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
+
 
 
 

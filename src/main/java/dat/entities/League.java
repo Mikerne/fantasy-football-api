@@ -5,7 +5,7 @@ import dat.security.entities.User;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.security.Timestamp;
+import java.sql.Timestamp; // hvis du vil matche database-TIMESTAMP
 import java.util.List;
 
 @Entity

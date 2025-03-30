@@ -5,7 +5,8 @@ import dat.security.entities.User;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.security.Timestamp;
+
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -32,7 +33,4 @@ public class Team {
 
     @OneToMany(mappedBy = "team")
     private List<Player> players;
-
-
-
 }
