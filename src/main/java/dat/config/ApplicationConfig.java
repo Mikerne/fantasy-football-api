@@ -1,8 +1,10 @@
 package dat.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dat.controllers.impl.LeagueController;
 import dat.controllers.impl.MatchController;
 import dat.controllers.impl.PointController;
+import dat.daos.impl.LeaugeDAO;
 import dat.daos.impl.MatchDAO;
 import dat.daos.impl.PointDAO;
 import dat.entities.Point;
@@ -29,13 +31,16 @@ public class ApplicationConfig {
     //DAO & Externals
     private static final MatchDAO matchDAO = new MatchDAO(emf);
     private static final PointDAO pointDAO = new PointDAO(emf);
+    private static final LeaugeDAO leaugeDAO = new LeaugeDAO(emf);
     //Controllere
     private static final MatchController matchController = new MatchController(matchDAO);
     private static final PointController pointController = new PointController(pointDAO);
+    private static final LeagueController leagueController = new LeagueController(leaugeDAO);
     //Her tilføjes andre controllere
     private static final Routes routes = new Routes(
             matchController,
-            pointController
+            pointController,
+            leagueController
     );
     private static ObjectMapper jsonMapper = new Utils().getObjectMapper();
     private static SecurityController securityController = SecurityController.getInstance();
