@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dat.config.HibernateConfig;
 import dat.entities.Match;
+import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.*;
 import java.io.IOException;
 import java.util.List;
@@ -17,8 +18,8 @@ class MatchDAOTest {
 
     @BeforeAll
     void setup() {
-        HibernateConfig.setTest(true);
-        matchDAO = new MatchDAO(HibernateConfig.getEntityManagerFactoryForTest());
+        EntityManagerFactory emf = HibernateConfig.createNewTestEMF(); // Ny instans hver gang
+        matchDAO = new MatchDAO(emf);
     }
 
     @Test

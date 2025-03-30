@@ -33,6 +33,12 @@ public class HibernateConfig {
         return emf;
     }
 
+    public static EntityManagerFactory createNewTestEMF() {
+        setTest(true);
+        return createEMF(true); // Ny instans, ikke delt
+    }
+
+
     public static EntityManagerFactory getEntityManagerFactoryForTest() {
         if (emfTest == null){
             setTest(true);

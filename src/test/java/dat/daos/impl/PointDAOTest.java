@@ -5,6 +5,7 @@ import dat.dtos.PointCreateDTO;
 import dat.entities.Match;
 import dat.entities.Point;
 import dat.security.entities.User;
+import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -24,10 +25,10 @@ class PointDAOTest {
 
     @BeforeAll
     void setup() throws Exception {
-        HibernateConfig.setTest(true);
-        pointDAO = new PointDAO(HibernateConfig.getEntityManagerFactoryForTest());
-        matchDAO = new MatchDAO(HibernateConfig.getEntityManagerFactoryForTest());
-
+        EntityManagerFactory emf = HibernateConfig.createNewTestEMF();
+        // Brug samme EMF til alle DAO’er
+        pointDAO = new PointDAO(emf);
+        matchDAO = new MatchDAO(emf);
         // Opret test-bruger og match manuelt
         EntityManager em = HibernateConfig.getEntityManagerFactoryForTest().createEntityManager();
         EntityTransaction tx = em.getTransaction();
