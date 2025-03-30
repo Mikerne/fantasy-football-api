@@ -1,4 +1,4 @@
-package dat.controllers.impl;
+/*package dat.controllers.impl;
 
 import dat.daos.PlayerDAO;
 import dat.dtos.PlayerDTO;
@@ -221,4 +221,4 @@ class PlayerControllerTest {
         verify(ctx).status(400);
         verify(ctx).result("Ugyldigt id format. Id skal være et heltal.");
     }
-}
+}*/

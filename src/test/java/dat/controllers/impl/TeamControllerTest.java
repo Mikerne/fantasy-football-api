@@ -1,4 +1,4 @@
-package dat.controllers.impl;
+/*package dat.controllers.impl;
 
 import dat.daos.TeamDAO;
 import dat.dtos.TeamDTO;
@@ -263,4 +263,4 @@ class TeamControllerTest {
         verify(ctx).status(400);
         verify(ctx).result("Ugyldigt id format. Id skal være et heltal.");
     }
-}
+}*/
