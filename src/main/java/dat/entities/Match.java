@@ -19,7 +19,6 @@ public class Match {
     @Column(name = "match_date")
     private Timestamp matchDate; // <--- ændret fra Date
 
-
     @Column(name = "home_team")
     private String homeTeam;
 
