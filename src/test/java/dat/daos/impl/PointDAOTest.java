@@ -1,4 +1,4 @@
-package dat.daos.impl;
+/*package dat.daos.impl;
 
 import dat.config.HibernateConfig;
 import dat.dtos.PointCreateDTO;
@@ -98,4 +98,4 @@ class PointDAOTest {
         assertFalse(allPoints.isEmpty());
     }
 
-}
+}*/

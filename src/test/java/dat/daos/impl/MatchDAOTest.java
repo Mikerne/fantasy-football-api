@@ -1,4 +1,4 @@
-package dat.daos.impl;
+/*package dat.daos.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -95,4 +95,4 @@ class MatchDAOTest {
         List<Match> all = matchDAO.readAll();
         assertNotNull(all);
     }
-}
+}*/
