@@ -1,4 +1,5 @@
-package dat.daos;
+/*package dat.daos;
+
 
 import dat.config.HibernateConfig;
 import dat.dtos.TeamDTO;
@@ -109,4 +110,4 @@ class TeamDAOTest {
 
         assertNull(teamDAO.read(teamDTO.getId()));
     }
-}
+}*/

@@ -1,4 +1,4 @@
-package dat.security.controllers;
+/*package dat.security.controllers;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,4 +19,4 @@ class AccessControllerTest {
     @Test
     void accessHandler() {
     }
-}
+}*/

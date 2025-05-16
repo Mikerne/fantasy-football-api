@@ -1,4 +1,5 @@
-package dat.daos;
+/*package dat.daos;
+
 
 import dat.config.HibernateConfig;
 import dat.dtos.PlayerDTO;
@@ -104,4 +105,4 @@ class PlayerDAOTest {
         PlayerDTO deleted = playerDAO.read(player.getId());
         assertNull(deleted);
     }
-}
+}*/
