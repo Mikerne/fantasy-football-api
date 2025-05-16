@@ -17,12 +17,12 @@ public class PlayerRoutes {
 
     protected EndpointGroup getRoutes() {
         return () -> {
-            get(playerController::readAll, Role.USER);                   // GET /api/teams
-            post(playerController::create, Role.ADMIN);                   // POST /api/teams
+            get(playerController::readAll);
+            post(playerController::create, Role.ADMIN);
             path("/{id}", () -> {
-                get(playerController::read);                  // GET /api/teams/{id}
-                put(playerController::update, Role.ADMIN);                // PUT /api/teams/{id}
-                delete(playerController::delete, Role.ADMIN);             // DELETE /api/teams/{id}
+                get(playerController::read);
+                put(playerController::update, Role.ADMIN);
+                delete(playerController::delete, Role.ADMIN);
             });
         };
     }
