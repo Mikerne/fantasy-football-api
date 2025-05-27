@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom"
 import styled, { keyframes } from "styled-components"
-
+import TodaysMatchesTable from "../components/TodayMatchesTable"
 // Animations
 const fadeInUp = keyframes`
   from {
@@ -475,6 +475,8 @@ function DashboardPage({ onLogout, username = "Spiller" }) {
           <WelcomeTitle>Velkommen tilbage, {username}!</WelcomeTitle>
           <WelcomeSubtitle>Klar til at dominere denne sæson?</WelcomeSubtitle>
         </WelcomeSection>
+
+        <TodaysMatchesTable />
 
         <DashboardGrid>
           <DashboardCard>
