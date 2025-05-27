@@ -7,8 +7,6 @@ import dat.daos.TeamDAO;
 import dat.daos.impl.LeaugeDAO;
 import dat.daos.impl.MatchDAO;
 import dat.daos.impl.PointDAO;
-import dat.entities.Point;
-import dat.external.FootballDataService;
 import dat.routes.Routes;
 import dat.security.controllers.AccessController;
 import dat.security.controllers.SecurityController;
@@ -21,7 +19,6 @@ import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,14 +26,14 @@ public class ApplicationConfig {
 
     private static final EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory();
 
-    //DAO & Externals
+    // DAO & Controllere ...
     private static final MatchDAO matchDAO = new MatchDAO(emf);
     private static final PointDAO pointDAO = new PointDAO(emf);
     private static final LeaugeDAO leaugeDAO = new LeaugeDAO(emf);
     private static final PlayerDAO playerDAO = new PlayerDAO(emf);
     private static final TeamDAO teamDAO = new TeamDAO(emf);
     private static final SecurityDAO securityDAO = new SecurityDAO(emf);
-    //Controllere
+
     private static final MatchController matchController = new MatchController(matchDAO);
     private static final PointController pointController = new PointController(pointDAO);
     private static final LeagueController leagueController = new LeagueController(leaugeDAO);
@@ -44,16 +41,13 @@ public class ApplicationConfig {
     private static final TeamController teamController = new TeamController(teamDAO);
     private static final SecurityController securityController = new SecurityController(securityDAO);
 
-    //Her tilføjes andre controllere
     private static final Routes routes = new Routes(
             matchController,
             pointController,
             leagueController,
             teamController,
-            playerController
+            playerController);
 
-
-            );
     private static ObjectMapper jsonMapper = new Utils().getObjectMapper();
     private static AccessController accessController = new AccessController();
     private static Logger logger = LoggerFactory.getLogger(ApplicationConfig.class);
@@ -71,11 +65,25 @@ public class ApplicationConfig {
     public static Javalin startServer(int port) {
         Javalin app = Javalin.create(ApplicationConfig::configuration);
 
+        // CORS-opsætning til React (http://localhost:5173)
+        app.before(ctx -> {
+            ctx.header("Access-Control-Allow-Origin", "http://localhost:5173"); // Din React app origin
+            ctx.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+            ctx.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+            ctx.header("Access-Control-Allow-Credentials", "true"); // hvis du bruger cookies / auth headers
+        });
+
+        // OPTIONS preflight request håndtering
+        app.options("/*", ctx -> {
+            ctx.status(204);
+        });
+
         app.beforeMatched(accessController::accessHandler);
         app.after(ApplicationConfig::afterRequest);
 
         app.exception(Exception.class, ApplicationConfig::generalExceptionHandler);
         app.exception(ApiException.class, ApplicationConfig::apiExceptionHandler);
+
         app.start(port);
         return app;
     }
