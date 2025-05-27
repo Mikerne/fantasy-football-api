@@ -6,6 +6,8 @@ import DashboardPage from './pages/Dashboard';
 import ProfilePage from './pages/ProfilePage';
 import GlobalStyle from './GlobalStyle';
 
+
+import MyTeam from './pages/MyTeam'
 function App() {
   const [user, setUser] = useState(null);
 
@@ -36,6 +38,10 @@ function App() {
           <Route
             path="/profile"
             element={user ? <ProfilePage user={user} onLogout={handleLogout} /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/myteam"
+            element={user ? <MyTeam /> : <Navigate to="/login" />}
           />
           <Route
             path="*"

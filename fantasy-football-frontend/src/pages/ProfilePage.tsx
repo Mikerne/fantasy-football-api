@@ -1,5 +1,7 @@
 "use client"
+import React from "react"
 import { useState } from "react"
+import { Link } from "react-router-dom"
 import styled, { keyframes } from "styled-components"
 
 // Animations
@@ -438,6 +440,25 @@ function ProfilePage({
         </ProfileHeader>
 
         <ProfileGrid>
+          <ProfileCard>
+            <CardIcon>👤</CardIcon>
+            <CardTitle>Mit Hold</CardTitle>
+            <StatItem>
+              <StatLabel>Hold navn: Ukendt</StatLabel>
+              <StatValue>{user.totalPoints?.toLocaleString()}</StatValue>
+            </StatItem>
+            <StatItem>
+              <StatLabel>Sejre</StatLabel>
+              <StatValue>{user.wins}</StatValue>
+            </StatItem>
+            <StatItem>
+              <StatLabel>Nuværende Rang</StatLabel>
+              <StatValue>#{user.rank}</StatValue>
+            </StatItem>
+            <Link to="/myteam">
+              <EditButton>Se dit hold</EditButton>
+            </Link>
+          </ProfileCard>
           <ProfileCard>
             <CardIcon>📊</CardIcon>
             <CardTitle>Statistikker</CardTitle>
