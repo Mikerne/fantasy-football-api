@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import IndexPage from './pages/index';
 import LoginPage from './pages/LoginPage';
@@ -11,12 +11,29 @@ import MyTeam from './pages/MyTeam'
 function App() {
   const [user, setUser] = useState(null);
 
+
+  //Fiks af fejl hvor brugerens data ikke bliver loaded, når der bliver navigeret mellem sider
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const username = localStorage.getItem('username');
+  
+    if (token && username) {
+      setUser({ username, token });
+    }
+  }, []);
+  
+
+
+
   const handleLogin = (userData) => {
+    
+    console.log(userData)
     setUser(userData);
   };
 
   const handleLogout = () => {
     setUser(null);
+    console.log("Bruger bliver logget ud..")
     localStorage.removeItem('token');
     localStorage.removeItem('username');
   };

@@ -1,5 +1,5 @@
 "use client"
-import type React from "react"
+import React from "react"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import styled, { keyframes } from "styled-components"

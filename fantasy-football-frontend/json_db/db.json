@@ -1,0 +1,89 @@
+{
+    "players": [
+        {
+            "id": 1,
+            "name": "Lionel Messi",
+            "club": "Inter Miami",
+            "position": "RW",
+            "rating": 92
+        },
+        {
+            "id": 2,
+            "name": "Erling Haaland",
+            "club": "Manchester City",
+            "position": "ST",
+            "rating": 91
+        },
+        {
+            "id": 3,
+            "name": "Kevin De Bruyne",
+            "club": "Manchester City",
+            "position": "CM",
+            "rating": 91
+        },
+        {
+            "id": 4,
+            "name": "Kylian Mbappé",
+            "club": "Paris Saint-Germain",
+            "position": "LW",
+            "rating": 92
+        },
+        {
+            "id": 5,
+            "name": "Virgil van Dijk",
+            "club": "Liverpool",
+            "position": "CB",
+            "rating": 89
+        },
+        {
+            "id": 6,
+            "name": "Thibaut Courtois",
+            "club": "Real Madrid",
+            "position": "GK",
+            "rating": 90
+        },
+        {
+            "id": 7,
+            "name": "Jude Bellingham",
+            "club": "Real Madrid",
+            "position": "CM",
+            "rating": 88
+        },
+        {
+            "id": 8,
+            "name": "Bukayo Saka",
+            "club": "Arsenal",
+            "position": "RW",
+            "rating": 86
+        },
+        {
+            "id": 9,
+            "name": "Rúben Dias",
+            "club": "Manchester City",
+            "position": "CB",
+            "rating": 89
+        },
+        {
+            "id": 10,
+            "name": "Andrew Robertson",
+            "club": "Liverpool",
+            "position": "LB",
+            "rating": 87
+        },
+        {
+            "id": 11,
+            "name": "Robert Lewandowski",
+            "club": "FC Barcelona",
+            "position": "ST",
+            "rating": 90
+        },
+        {
+            "id": 12,
+            "name": "Pedri",
+            "club": "FC Barcelona",
+            "position": "CM",
+            "rating": 86
+        }
+    ],
+    "userTeams": []
+}

@@ -485,7 +485,7 @@ function DashboardPage({ onLogout, username = "Spiller" }) {
             <CardDescription>
               Se og administrer dit nuværende fantasy hold. Tjek spillerstatistikker og optimer din opstilling.
             </CardDescription>
-            <CardButton onClick={() => navigate("/team")}>Administrer Hold</CardButton>
+            <CardButton onClick={() => navigate("/myteam")}>Administrer Hold</CardButton>
           </DashboardCard>
 
           <DashboardCard>
@@ -518,7 +518,7 @@ function DashboardPage({ onLogout, username = "Spiller" }) {
           <QuickActionsTitle>Hurtige Handlinger</QuickActionsTitle>
           <ButtonsContainer>
             <ActionButton onClick={() => navigate("/play")}>🎮 Spil Nu</ActionButton>
-            <ActionButton onClick={() => navigate("/team")}>👥 Se Dit Hold</ActionButton>
+            <ActionButton onClick={() => navigate("/myteam")}>👥 Se Dit Hold</ActionButton>
           </ButtonsContainer>
         </QuickActionsSection>
       </Main>
