@@ -5,7 +5,7 @@ import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/Dashboard';
 import ProfilePage from './pages/ProfilePage';
 import GlobalStyle from './GlobalStyle';
-
+import Market from './pages/market';
 
 import MyTeam from './pages/MyTeam'
 function App() {
@@ -59,6 +59,10 @@ function App() {
           <Route
             path="/myteam"
             element={user ? <MyTeam /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/market"
+            element={user ? <Market /> : <Navigate to="/login" />}
           />
           <Route
             path="*"

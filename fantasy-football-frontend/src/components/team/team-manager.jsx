@@ -1,41 +1,9 @@
 "use client"
 
-import React from "react"
-
-import { useState } from "react"
+import React, { useState } from "react"
 import "./team-manager.css"
 
-interface Player {
-  id: number
-  name: string
-  position: string
-  rating: number
-  image: string
-}
-
-interface TeamPosition {
-  id: string
-  name: string
-  player: Player | null
-  x: number
-  y: number
-}
-
-const mockPlayers: Player[] = [
-  { id: 1, name: "Mads Hansen", position: "Målmand", rating: 85, image: "/placeholder.svg?height=60&width=60" },
-  { id: 2, name: "Lars Nielsen", position: "Forsvarer", rating: 82, image: "/placeholder.svg?height=60&width=60" },
-  { id: 3, name: "Peter Andersen", position: "Forsvarer", rating: 79, image: "/placeholder.svg?height=60&width=60" },
-  { id: 4, name: "Jesper Larsen", position: "Midtbane", rating: 88, image: "/placeholder.svg?height=60&width=60" },
-  { id: 5, name: "Thomas Sørensen", position: "Midtbane", rating: 84, image: "/placeholder.svg?height=60&width=60" },
-  { id: 6, name: "Anders Pedersen", position: "Angriber", rating: 90, image: "/placeholder.svg?height=60&width=60" },
-  { id: 7, name: "Mikkel Jensen", position: "Angriber", rating: 87, image: "/placeholder.svg?height=60&width=60" },
-  { id: 8, name: "Jonas Møller", position: "Forsvarer", rating: 83, image: "/placeholder.svg?height=60&width=60" },
-  { id: 9, name: "Frederik Olsen", position: "Midtbane", rating: 86, image: "/placeholder.svg?height=60&width=60" },
-  { id: 10, name: "Christian Bach", position: "Angriber", rating: 89, image: "/placeholder.svg?height=60&width=60" },
-]
-
-// 7-mands formation: 1-2-2-2 (Målmand, 2 forsvarere, 2 midtbane, 2 angribere)
-const initialFormation: TeamPosition[] = [
+const initialFormation = [
   { id: "gk", name: "Målmand", player: null, x: 50, y: 85 },
   { id: "lb", name: "Venstre back", player: null, x: 30, y: 65 },
   { id: "rb", name: "Højre back", player: null, x: 70, y: 65 },
@@ -45,20 +13,21 @@ const initialFormation: TeamPosition[] = [
   { id: "rf", name: "Højre angriber", player: null, x: 65, y: 25 },
 ]
 
-export default function TeamManager() {
-  const [availablePlayers, setAvailablePlayers] = useState<Player[]>(mockPlayers)
-  const [formation, setFormation] = useState<TeamPosition[]>(initialFormation)
-  const [draggedPlayer, setDraggedPlayer] = useState<Player | null>(null)
+export default function TeamManager({ initialPlayers }) {
+  // Modtager spillerens købte spillere som prop
+  const [availablePlayers, setAvailablePlayers] = useState(initialPlayers || []);
+  const [formation, setFormation] = useState(initialFormation)
+  const [draggedPlayer, setDraggedPlayer] = useState(null)
 
-  const handleDragStart = (player: Player) => {
+  const handleDragStart = (player) => {
     setDraggedPlayer(player)
   }
 
-  const handleDragOver = (e: React.DragEvent) => {
+  const handleDragOver = (e) => {
     e.preventDefault()
   }
 
-  const handleDrop = (e: React.DragEvent, positionId: string) => {
+  const handleDrop = (e, positionId) => {
     e.preventDefault()
 
     if (!draggedPlayer) return
@@ -68,27 +37,31 @@ export default function TeamManager() {
 
     // Hvis positionen allerede har en spiller, flyt den tilbage til listen
     if (position.player) {
-      setAvailablePlayers((prev) => [...prev, position.player!])
+      setAvailablePlayers((prev) => [...prev, position.player])
     }
 
     // Opdater formationen med den nye spiller
-    setFormation((prev) => prev.map((pos) => (pos.id === positionId ? { ...pos, player: draggedPlayer } : pos)))
+    setFormation((prev) =>
+      prev.map((pos) => (pos.id === positionId ? { ...pos, player: draggedPlayer } : pos))
+    )
 
     // Fjern spilleren fra listen af tilgængelige spillere
-    setAvailablePlayers((prev) => prev.filter((player) => player.id !== draggedPlayer.id))
+    setAvailablePlayers((prev) => prev.filter((p) => p.id !== draggedPlayer.id))
 
     setDraggedPlayer(null)
   }
 
-  const removePlayerFromFormation = (positionId: string) => {
+  const removePlayerFromFormation = (positionId) => {
     const position = formation.find((pos) => pos.id === positionId)
     if (!position?.player) return
 
     // Tilføj spilleren tilbage til listen
-    setAvailablePlayers((prev) => [...prev, position.player!])
+    setAvailablePlayers((prev) => [...prev, position.player])
 
     // Fjern spilleren fra positionen
-    setFormation((prev) => prev.map((pos) => (pos.id === positionId ? { ...pos, player: null } : pos)))
+    setFormation((prev) =>
+      prev.map((pos) => (pos.id === positionId ? { ...pos, player: null } : pos))
+    )
   }
 
   const playersOnField = formation.filter((pos) => pos.player).length
@@ -136,7 +109,7 @@ export default function TeamManager() {
                         ×
                       </button>
                       <div className="player-avatar">
-                        <img src={position.player.image || "/placeholder.svg"} alt={position.player.name} />
+                        <img src={position.player.imageUrl || "/placeholder.svg"} alt={position.player.name} />
                       </div>
                       <div className="player-details">
                         <span className="player-name">{position.player.name}</span>
@@ -165,7 +138,7 @@ export default function TeamManager() {
             {availablePlayers.map((player) => (
               <div key={player.id} className="player-card" draggable onDragStart={() => handleDragStart(player)}>
                 <div className="player-card-avatar">
-                  <img src={player.image || "/placeholder.svg"} alt={player.name} />
+                  <img src={player.imageUrl || "/placeholder.svg"} alt={player.name} />
                 </div>
                 <div className="player-card-info">
                   <h3 className="player-card-name">{player.name}</h3>

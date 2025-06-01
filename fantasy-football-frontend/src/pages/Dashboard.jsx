@@ -510,7 +510,7 @@ function DashboardPage({ onLogout, username = "Spiller" }) {
             <CardIcon>🔄</CardIcon>
             <CardTitle>Transfers</CardTitle>
             <CardDescription>Køb og sælg spillere på transfermarkedet. Find de næste store talenter.</CardDescription>
-            <CardButton onClick={() => navigate("/transfers")}>Transfer Marked</CardButton>
+            <CardButton onClick={() => navigate("/market")}>Transfer Marked</CardButton>
           </DashboardCard>
         </DashboardGrid>
 

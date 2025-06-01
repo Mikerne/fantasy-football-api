@@ -1,89 +1,135 @@
 {
-    "players": [
+  "players": [
+    {
+      "id": 1,
+      "name": "Lionel Messi",
+      "club": "Inter Miami",
+      "position": "RW",
+      "rating": 92,
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Lionel_Messi_20180626.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Erling Haaland",
+      "club": "Manchester City",
+      "position": "ST",
+      "rating": 91,
+      "imageUrl": "https://img.uefa.com/imgml/TP/players/1/2025/324x324/250103758.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Kevin De Bruyne",
+      "club": "Manchester City",
+      "position": "CM",
+      "rating": 91,
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTCcDrelLZM0mXJ5kOC_XrcJ2G5ns093lv8A&s"
+    },
+    {
+      "id": 4,
+      "name": "Kylian Mbappé",
+      "club": "Real Madrid",
+      "position": "ST",
+      "rating": 92,
+      "imageUrl": "https://img.uefa.com/imgml/TP/players/1/2025/324x324/250076574.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Virgil van Dijk",
+      "club": "Liverpool",
+      "position": "CB",
+      "rating": 89,
+      "imageUrl": "https://www.anfield-online.co.uk/squad/penpics/van-dijk.jpg"
+    },
+    {
+      "id": 6,
+      "name": "Thibaut Courtois",
+      "club": "Real Madrid",
+      "position": "GK",
+      "rating": 90,
+      "imageUrl": "https://img.uefa.com/imgml/TP/players/1/2025/324x324/250011668.jpg"
+    },
+    {
+      "id": 7,
+      "name": "Jude Bellingham",
+      "club": "Real Madrid",
+      "position": "CM",
+      "rating": 88,
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI75tV-JGW13MdqpZp0evMLn4S0koAvxV0hA&s"
+    },
+    {
+      "id": 8,
+      "name": "Bukayo Saka",
+      "club": "Arsenal",
+      "position": "RW",
+      "rating": 86,
+      "imageUrl": "https://img.uefa.com/imgml/TP/players/1/2025/324x324/250106939.jpg"
+    },
+    {
+      "id": 9,
+      "name": "Rúben Dias",
+      "club": "Manchester City",
+      "position": "CB",
+      "rating": 89,
+      "imageUrl": "https://i.ebayimg.com/images/g/kXgAAOSw2oBlUgM4/s-l400.png"
+    },
+    {
+      "id": 10,
+      "name": "Andrew Robertson",
+      "club": "Liverpool",
+      "position": "LB",
+      "rating": 87,
+      "imageUrl": "https://sortitoutsidospaces.b-cdn.net/media/U7R2x78PfKEO0mT7qEqFxnKjU59aZEFzRYX4YLWH.png"
+    },
+    {
+      "id": 11,
+      "name": "Robert Lewandowski",
+      "club": "FC Barcelona",
+      "position": "ST",
+      "rating": 90,
+      "imageUrl": "https://www.playmakerstats.com/img/jogadores/new/10/23/71023_robert_lewandowski_20250305223718.png"
+    },
+    {
+      "id": 12,
+      "name": "Pedri",
+      "club": "FC Barcelona",
+      "position": "CM",
+      "rating": 86,
+      "imageUrl": "https://img.uefa.com/imgml/TP/players/1/2025/324x324/250143693.jpg"
+    }
+  ],
+  "userTeams": [
+    {
+      "id": "78c4",
+      "username": "usertest2",
+      "players": [
         {
-            "id": 1,
-            "name": "Lionel Messi",
-            "club": "Inter Miami",
-            "position": "RW",
-            "rating": 92
+          "id": 2,
+          "name": "Erling Haaland",
+          "club": "Manchester City",
+          "position": "ST",
+          "rating": 91,
+          "imageUrl": "https://img.uefa.com/imgml/TP/players/1/2025/324x324/250103758.jpg",
+          "price": 58000000
         },
         {
-            "id": 2,
-            "name": "Erling Haaland",
-            "club": "Manchester City",
-            "position": "ST",
-            "rating": 91
+          "id": 4,
+          "name": "Kylian Mbappé",
+          "club": "Real Madrid",
+          "position": "ST",
+          "rating": 92,
+          "imageUrl": "https://img.uefa.com/imgml/TP/players/1/2025/324x324/250076574.jpg",
+          "price": 62000000
         },
         {
-            "id": 3,
-            "name": "Kevin De Bruyne",
-            "club": "Manchester City",
-            "position": "CM",
-            "rating": 91
-        },
-        {
-            "id": 4,
-            "name": "Kylian Mbappé",
-            "club": "Paris Saint-Germain",
-            "position": "LW",
-            "rating": 92
-        },
-        {
-            "id": 5,
-            "name": "Virgil van Dijk",
-            "club": "Liverpool",
-            "position": "CB",
-            "rating": 89
-        },
-        {
-            "id": 6,
-            "name": "Thibaut Courtois",
-            "club": "Real Madrid",
-            "position": "GK",
-            "rating": 90
-        },
-        {
-            "id": 7,
-            "name": "Jude Bellingham",
-            "club": "Real Madrid",
-            "position": "CM",
-            "rating": 88
-        },
-        {
-            "id": 8,
-            "name": "Bukayo Saka",
-            "club": "Arsenal",
-            "position": "RW",
-            "rating": 86
-        },
-        {
-            "id": 9,
-            "name": "Rúben Dias",
-            "club": "Manchester City",
-            "position": "CB",
-            "rating": 89
-        },
-        {
-            "id": 10,
-            "name": "Andrew Robertson",
-            "club": "Liverpool",
-            "position": "LB",
-            "rating": 87
-        },
-        {
-            "id": 11,
-            "name": "Robert Lewandowski",
-            "club": "FC Barcelona",
-            "position": "ST",
-            "rating": 90
-        },
-        {
-            "id": 12,
-            "name": "Pedri",
-            "club": "FC Barcelona",
-            "position": "CM",
-            "rating": 86
+          "id": 1,
+          "name": "Lionel Messi",
+          "club": "Inter Miami",
+          "position": "RW",
+          "rating": 92,
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Lionel_Messi_20180626.jpg",
+          "price": 56000000
         }
-    ],
-    "userTeams": []
+      ]
+    }
+  ]
 }
