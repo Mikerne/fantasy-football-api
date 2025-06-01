@@ -128,6 +128,33 @@
           "rating": 92,
           "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Lionel_Messi_20180626.jpg",
           "price": 56000000
+        },
+        {
+          "id": 5,
+          "name": "Virgil van Dijk",
+          "club": "Liverpool",
+          "position": "CB",
+          "rating": 89,
+          "imageUrl": "https://www.anfield-online.co.uk/squad/penpics/van-dijk.jpg",
+          "price": 53000000
+        },
+        {
+          "id": 7,
+          "name": "Jude Bellingham",
+          "club": "Real Madrid",
+          "position": "CM",
+          "rating": 88,
+          "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI75tV-JGW13MdqpZp0evMLn4S0koAvxV0hA&s",
+          "price": 53000000
+        },
+        {
+          "id": 8,
+          "name": "Bukayo Saka",
+          "club": "Arsenal",
+          "position": "RW",
+          "rating": 86,
+          "imageUrl": "https://img.uefa.com/imgml/TP/players/1/2025/324x324/250106939.jpg",
+          "price": 49000000
         }
       ]
     }

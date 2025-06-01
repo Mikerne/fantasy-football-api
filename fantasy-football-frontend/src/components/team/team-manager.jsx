@@ -11,6 +11,7 @@ const initialFormation = [
   { id: "rm", name: "Højre midtbane", player: null, x: 65, y: 45 },
   { id: "lf", name: "Venstre angriber", player: null, x: 35, y: 25 },
   { id: "rf", name: "Højre angriber", player: null, x: 65, y: 25 },
+  { id: "st", name: "Højre angriber", player: null, x: 65, y: 25 },
 ]
 
 export default function TeamManager({ initialPlayers }) {
