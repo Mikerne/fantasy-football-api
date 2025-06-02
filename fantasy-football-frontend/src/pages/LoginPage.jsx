@@ -269,7 +269,7 @@ const Button = styled.button`
   }
 `
 
-const ErrorMsg = styled.div<{ show: boolean }>`
+const ErrorMsg = styled.div`
   color: #ff6b6b;
   font-weight: 600;
   text-align: center;
@@ -280,7 +280,8 @@ const ErrorMsg = styled.div<{ show: boolean }>`
   margin-bottom: 1rem;
   animation: ${(props) => (props.show ? shake : "none")} 0.5s ease-in-out;
   backdrop-filter: blur(10px);
-`
+`;
+
 
 const ForgotPassword = styled.a`
   color: #a8d5a8;
@@ -333,18 +334,16 @@ const LoadingSpinner = styled.div`
   }
 `
 
-interface LoginPageProps {
-  onLogin?: (userData: { username: string; token: string }) => void
-}
 
-function LoginPage({ onLogin }: LoginPageProps) {
+
+function LoginPage({ onLogin }) {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setIsLoading(true)
     setError("")

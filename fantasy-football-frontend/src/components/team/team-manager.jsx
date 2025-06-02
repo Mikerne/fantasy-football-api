@@ -63,6 +63,28 @@ export default function TeamManager({ initialPlayers }) {
     setFormation((prev) =>
       prev.map((pos) => (pos.id === positionId ? { ...pos, player: null } : pos))
     )
+
+
+    //Eksamen hvis vi brugte loop:
+    /*
+    setFormation((prev) => {
+      const newFormation = [];
+    
+      for (let i = 0; i < prev.length; i++) {
+        const pos = prev[i];
+        if (pos.id === positionId) {
+          // Lav en kopi af pos med player sat til null
+          newFormation.push({ ...pos, player: null });
+        } else {
+          // Behold det originale element
+          newFormation.push(pos);
+        }
+      }
+    
+      return newFormation;
+    });
+    */
+    
   }
 
   const playersOnField = formation.filter((pos) => pos.player).length
